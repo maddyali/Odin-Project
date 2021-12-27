@@ -147,3 +147,13 @@ Info section
 .cta-text {
   font-size: 18px;
 }
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1f2937;
+  color: #f9faf8;
+  padding: 10px 0;
+  font-size: 15px;
+}
