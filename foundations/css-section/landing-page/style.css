@@ -1,0 +1,78 @@
+/* Default colors and font styles: 
+- dark background color (hero and footer): #1F2937
+- hero main text ("this website is awesome"): 48px extra-bold #F9FAF8
+- hero secondary text, header link text: 18px #E5E7EB
+- header logo text: 24px #F9FAF8
+- button color, call to action background color: #3882F6
+- information header text: 36px extra-bold #1F2937
+- quote section background color: #E5E7EB
+- quote text: 36px light italic #1F2937
+*/
+/* Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Header */
+.header-wrapper {
+  background-color: #1f2937;
+}
+header {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #1f2937;
+  color: #f9faf8;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  padding: 15px;
+}
+ul,
+a {
+  list-style: none;
+  text-decoration: none;
+  color: #f9faf8;
+}
+.logo {
+  font-size: 24px;
+}
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+.hero-container {
+  display: flex;
+}
+.hero-text h2 {
+  font-size: 48px;
+  font-weight: bolder;
+}
+.hero-text p {
+  font-size: 18px;
+}
+.hero-button {
+  background-color: #3882f6;
+  color: #f9faf8;
+  height: 20px;
+  width: 80px;
+  border: 0px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+.hero-image {
+  background-color: gray;
+  height: auto;
+  width: 250px;
+  flex-shrink: 0;
+}
