@@ -9,6 +9,26 @@
   <body>
     <script>
       "use strict";
+      function computerPlay() {
+        //   intialize a variable to store computer selection
+        let computerSelection;
+        // generate a random int between 0-2
+        computerSelection = Math.floor(Math.random() * 3);
+        // if random int is equal to 0 update computer selection to rock and return
+        if (computerSelection === 0) {
+          computerSelection = "Rock";
+          return computerSelection;
+        }
+        // if random int is equal to 1 update computer selection to paper and return
+        else if (computerSelection === 1) {
+          computerSelection = "Paper";
+          return computerSelection;
+        }
+        // else update computer slection to scissors return
+        else computerSelection = "Scissors";
+        return computerSelection;
+      }
+      console.log(computerPlay());
     </script>
   </body>
 </html>
