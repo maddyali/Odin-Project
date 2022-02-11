@@ -8,9 +8,11 @@
   </head>
   <body>
     <script>
+      let playerScore = 0;
+      let computerScore = 0;
+      let roundCount = 0;
       function computerPlay() {
-        // generate a random int between 0-2 for computer choice
-        let computerChoice = Math.floor(Math.random() * 3);
+        const computerChoice = random(2);
         // return either Rock, Paper, or Scissors for computer choice
         switch (computerChoice) {
           case 0:
@@ -26,17 +28,17 @@
       }
 
       function playRound(playerSelection, computerSelection) {
-        // uppercase first letter of player selection only
-        playerSelection =
-          playerSelection[0].toUpperCase() +
-          playerSelection.slice(1).toLowerCase();
+        playerSelection = capitalize(playerSelection);
         // scenerios where player wins
         if (
           (playerSelection === "Rock" && computerSelection === "Scissors") ||
           (playerSelection === "Paper" && computerSelection === "Rock") ||
           (playerSelection === "Scissors" && computerSelection === "Paper")
         ) {
-          return `You Win! ${playerSelection} beats ${computerSelection}`;
+          roundCount++;
+          playerScore++;
+
+          return `Round: ${roundCount} You Win! ${playerSelection} beats ${computerSelection}`;
         }
         // scenarios where computer wins
         else if (
@@ -44,16 +46,41 @@
           (computerSelection === "Paper" && playerSelection === "Rock") ||
           (computerSelection === "Scissors" && playerSelection === "Paper")
         ) {
-          return `You Lose! ${computerSelection} beats ${playerSelection}`;
+          roundCount++;
+          computerScore++;
+
+          return `Round: ${roundCount} You Lose! ${computerSelection} beats ${playerSelection}`;
         }
         // scenario where there is a tie
         else if (playerSelection === computerSelection) {
           return `It's a Tie!`;
         } else return `ERROR`;
       }
-      const playerSelection = "rock";
-      const computerSelection = computerPlay();
-      console.log(playRound(playerSelection, computerSelection));
+
+      // game play
+      const game = function () {
+        for (let i = 0; i < 5; i++) {
+          const playerSelection = prompt("Paper, Rock or Scissors?");
+          const computerSelection = computerPlay();
+          console.log(playRound(playerSelection, computerSelection));
+        }
+        if (playerScore === computerScore) {
+          console.log(
+            `Time game! ${playerScore} to ${computerScore}. Play again!`
+          );
+        } else if (playerScore > computerScore) {
+          console.log(`You're the winner! ${playerScore} to ${computerScore}`);
+        } else console.log(`You lose! ${computerScore} to ${playerScore}`);
+      };
+
+      game();
+      // helper functions
+      function random(number) {
+        return Math.floor(Math.random() * number + 1);
+      }
+      function capitalize(string) {
+        return string[0].toUpperCase() + string.slice(1).toLowerCase();
+      }
     </script>
   </body>
 </html>
