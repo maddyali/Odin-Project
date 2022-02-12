@@ -7,6 +7,9 @@
     <title>Document</title>
   </head>
   <body>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
     <script>
       let playerScore = 0;
       let computerScore = 0;
@@ -57,13 +60,12 @@
         } else return `ERROR`;
       }
 
-      // game play
       const game = function () {
-        for (let i = 0; i < 5; i++) {
-          const playerSelection = prompt("Paper, Rock or Scissors?");
-          const computerSelection = computerPlay();
-          console.log(playRound(playerSelection, computerSelection));
-        }
+        // for (let i = 0; i < 5; i++) {
+        //   const playerSelection = prompt("Paper, Rock or Scissors?");
+        //   const computerSelection = computerPlay();
+        //   console.log(playRound(playerSelection, computerSelection));
+        // }
         if (playerScore === computerScore) {
           console.log(
             `Time game! ${playerScore} to ${computerScore}. Play again!`
@@ -73,7 +75,17 @@
         } else console.log(`You lose! ${computerScore} to ${playerScore}`);
       };
 
-      game();
+      // game();
+
+      const btns = document.querySelectorAll("button");
+
+      btns.forEach((btns) => {
+        btns.addEventListener("click", () => {
+          const playerSelection = btns.id;
+          console.log(playRound(playerSelection, computerPlay()));
+        });
+      });
+
       // helper functions
       function random(number) {
         return Math.floor(Math.random() * number + 1);
