@@ -10,13 +10,14 @@
     <button id="rock">Rock</button>
     <button id="paper">Paper</button>
     <button id="scissors">Scissors</button>
+    <div id="results"></div>
     <script>
+      // globals
       let playerScore = 0;
       let computerScore = 0;
-      let roundCount = 0;
+
       function computerPlay() {
         const computerChoice = random(2);
-        // return either Rock, Paper, or Scissors for computer choice
         switch (computerChoice) {
           case 0:
             return "Rock";
@@ -32,59 +33,47 @@
 
       function playRound(playerSelection, computerSelection) {
         playerSelection = capitalize(playerSelection);
-        // scenerios where player wins
+
         if (
           (playerSelection === "Rock" && computerSelection === "Scissors") ||
           (playerSelection === "Paper" && computerSelection === "Rock") ||
           (playerSelection === "Scissors" && computerSelection === "Paper")
         ) {
-          roundCount++;
           playerScore++;
-
-          return `Round: ${roundCount} You Win! ${playerSelection} beats ${computerSelection}`;
-        }
-        // scenarios where computer wins
-        else if (
+          display(
+            `You won the round! ${playerSelection} beats ${computerSelection}`
+          );
+        } else if (
           (computerSelection === "Rock" && playerSelection === "Scissors") ||
           (computerSelection === "Paper" && playerSelection === "Rock") ||
           (computerSelection === "Scissors" && playerSelection === "Paper")
         ) {
-          roundCount++;
           computerScore++;
-
-          return `Round: ${roundCount} You Lose! ${computerSelection} beats ${playerSelection}`;
-        }
-        // scenario where there is a tie
-        else if (playerSelection === computerSelection) {
-          return `It's a Tie!`;
+          display(
+            `You lost the round! ${computerSelection} beats ${playerSelection}`
+          );
+        } else if (playerSelection === computerSelection) {
+          display(`This round is a Tie!`);
         } else return `ERROR`;
       }
+      // DOM selectors
+      const buttons = document.querySelectorAll("button");
+      const results = document.querySelector("#results");
 
       const game = function () {
-        // for (let i = 0; i < 5; i++) {
-        //   const playerSelection = prompt("Paper, Rock or Scissors?");
-        //   const computerSelection = computerPlay();
-        //   console.log(playRound(playerSelection, computerSelection));
-        // }
-        if (playerScore === computerScore) {
-          console.log(
-            `Time game! ${playerScore} to ${computerScore}. Play again!`
-          );
-        } else if (playerScore > computerScore) {
-          console.log(`You're the winner! ${playerScore} to ${computerScore}`);
-        } else console.log(`You lose! ${computerScore} to ${playerScore}`);
+        buttons.forEach((buttons) => {
+          buttons.addEventListener("click", () => {
+            let playerSelection = buttons.id;
+            let computerSelection = computerPlay();
+            playRound(playerSelection, computerSelection);
+            if (playerScore === 5 || computerScore === 5) {
+              declareWinner();
+            }
+          });
+        });
       };
 
-      // game();
-
-      const btns = document.querySelectorAll("button");
-
-      btns.forEach((btns) => {
-        btns.addEventListener("click", () => {
-          const playerSelection = btns.id;
-          console.log(playRound(playerSelection, computerPlay()));
-        });
-      });
+      game();
 
       // helper functions
       function random(number) {
@@ -92,6 +81,16 @@
       }
       function capitalize(string) {
         return string[0].toUpperCase() + string.slice(1).toLowerCase();
+      }
+      function display(string) {
+        results.textContent = string;
+      }
+      function declareWinner() {
+        if (playerScore === computerScore) {
+          results.textContent = `Time game! Play again?`;
+        } else if (playerScore > computerScore) {
+          results.textContent = `You win the game!`;
+        } else results.textContent = `You lose the game!`;
       }
     </script>
   </body>
