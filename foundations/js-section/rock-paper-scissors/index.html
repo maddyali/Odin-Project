@@ -7,15 +7,14 @@
     <title>Document</title>
   </head>
   <body>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
+    <div class="buttons-container">
+      <button id="rock">Rock</button>
+      <button id="paper">Paper</button>
+      <button id="scissors">Scissors</button>
+    </div>
     <div id="results"></div>
+    <button id="play-again">Play Again?</button>
     <script>
-      // globals
-      let playerScore = 0;
-      let computerScore = 0;
-
       function computerPlay() {
         const computerChoice = random(2);
         switch (computerChoice) {
@@ -31,51 +30,75 @@
         }
       }
 
-      function playRound(playerSelection, computerSelection) {
+      function playRound(playerSelection) {
         playerSelection = capitalize(playerSelection);
+        let computerSelection = computerPlay();
 
         if (
           (playerSelection === "Rock" && computerSelection === "Scissors") ||
           (playerSelection === "Paper" && computerSelection === "Rock") ||
           (playerSelection === "Scissors" && computerSelection === "Paper")
         ) {
-          playerScore++;
           display(
             `You won the round! ${playerSelection} beats ${computerSelection}`
           );
+          return "Player";
         } else if (
           (computerSelection === "Rock" && playerSelection === "Scissors") ||
           (computerSelection === "Paper" && playerSelection === "Rock") ||
           (computerSelection === "Scissors" && playerSelection === "Paper")
         ) {
-          computerScore++;
           display(
             `You lost the round! ${computerSelection} beats ${playerSelection}`
           );
+          return "Computer";
         } else if (playerSelection === computerSelection) {
           display(`This round is a Tie!`);
+          return "Tie";
         } else return `ERROR`;
       }
+
       // DOM selectors
-      const buttons = document.querySelectorAll("button");
+      const buttons = document.querySelector(".buttons-container");
       const results = document.querySelector("#results");
+      const playAgain = document.querySelector("#play-again");
+      playAgain.addEventListener("click", () => location.reload());
 
-      const game = function () {
-        buttons.forEach((buttons) => {
-          buttons.addEventListener("click", () => {
-            let playerSelection = buttons.id;
-            let computerSelection = computerPlay();
-            playRound(playerSelection, computerSelection);
-            if (playerScore === 5 || computerScore === 5) {
-              declareWinner();
-            }
-          });
-        });
-      };
+      // Event listener to start play
+      buttons.addEventListener("click", function (e) {
+        if (e.target.nodeName === "BUTTON") {
+          let playerSelection = e.target.id;
+          let roundWinner = playRound(playerSelection);
+          keepScore(roundWinner);
+        }
+      });
 
-      game();
-
-      // helper functions
+      const keepScore = outer();
+      function outer() {
+        let playerScore = 0;
+        let computerScore = 0;
+        // This inner function has private access to the player and computer scores
+        const inner = (roundWinner) => {
+          switch (roundWinner) {
+            case "Player":
+              playerScore++;
+              break;
+            case "Computer":
+              computerScore++;
+              break;
+          }
+          if (playerScore === 5 || computerScore === 5) {
+            if (playerScore === computerScore) {
+              results.textContent = `Time game! Play again?`;
+            } else if (playerScore > computerScore) {
+              results.textContent = `You win the game!`;
+            } else results.textContent = `You lose the game!`;
+          }
+        };
+        // By returning the function we can have access to the parent scope even after the parent function has returned and closed
+        return inner;
+      }
+      // Helper functions
       function random(number) {
         return Math.floor(Math.random() * number + 1);
       }
@@ -84,13 +107,6 @@
       }
       function display(string) {
         results.textContent = string;
-      }
-      function declareWinner() {
-        if (playerScore === computerScore) {
-          results.textContent = `Time game! Play again?`;
-        } else if (playerScore > computerScore) {
-          results.textContent = `You win the game!`;
-        } else results.textContent = `You lose the game!`;
       }
     </script>
   </body>
