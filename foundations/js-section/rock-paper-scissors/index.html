@@ -4,110 +4,77 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>Rock, Paper, Scissors</title>
   </head>
   <body>
-    <div class="buttons-container">
-      <button id="rock">Rock</button>
-      <button id="paper">Paper</button>
-      <button id="scissors">Scissors</button>
-    </div>
-    <div id="results"></div>
-    <button id="play-again">Play Again?</button>
-    <script>
-      function computerPlay() {
-        const computerChoice = random(2);
-        switch (computerChoice) {
-          case 0:
-            return "Rock";
-            break;
-          case 1:
-            return "Paper";
-            break;
-          case 2:
-            return "Scissors";
-            break;
-        }
-      }
+    <header>
+      <h1>Rock, Paper, Scissors</h1>
+    </header>
+    <main>
+      <section id="game" class="game">
+        <h2>First to 5 wins!</h2>
+        <section id="scoreboard">
+          <h3>Scores</h3>
+          <div class="scores-container">
+            <div class="container left">
+              <div class="player-title">You</div>
+              <div id="player-total" class="scores">0</div>
+            </div>
+            <div class="container right">
+              <div class="player-title">Computer</div>
+              <div id="computer-total" class="scores">0</div>
+            </div>
+          </div>
+        </section>
+        <section id="gameboard">
+          <div class="container player">
+            <div class="player-title">You</div>
+            <div id="player-choice" class="choices">?</div>
+          </div>
+          <div class="container">
+            <div>VS</div>
+            <div id="results"></div>
+          </div>
+          <div class="container player">
+            <div class="player-title">Computer</div>
+            <div id="computer-choice" class="choices">?</div>
+          </div>
+        </section>
+        <section id="user-options">
+          <div class="container buttons">
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
+          </div>
+        </section>
+      </section>
+      <section class="reset-container hidden">
+        <h2 id="final-results">A message will appear here</h2>
+        <img
+          id="win-gif"
+          class="hidden"
+          src="https://media.giphy.com/media/XreQmk7ETCak0/giphy.gif"
+          alt="Thumbs up gif"
+        />
 
-      function playRound(playerSelection) {
-        playerSelection = capitalize(playerSelection);
-        let computerSelection = computerPlay();
-
-        if (
-          (playerSelection === "Rock" && computerSelection === "Scissors") ||
-          (playerSelection === "Paper" && computerSelection === "Rock") ||
-          (playerSelection === "Scissors" && computerSelection === "Paper")
-        ) {
-          display(
-            `You won the round! ${playerSelection} beats ${computerSelection}`
-          );
-          return "Player";
-        } else if (
-          (computerSelection === "Rock" && playerSelection === "Scissors") ||
-          (computerSelection === "Paper" && playerSelection === "Rock") ||
-          (computerSelection === "Scissors" && playerSelection === "Paper")
-        ) {
-          display(
-            `You lost the round! ${computerSelection} beats ${playerSelection}`
-          );
-          return "Computer";
-        } else if (playerSelection === computerSelection) {
-          display(`This round is a Tie!`);
-          return "Tie";
-        } else return `ERROR`;
-      }
-
-      // DOM selectors
-      const buttons = document.querySelector(".buttons-container");
-      const results = document.querySelector("#results");
-      const playAgain = document.querySelector("#play-again");
-      playAgain.addEventListener("click", () => location.reload());
-
-      // Event listener to start play
-      buttons.addEventListener("click", function (e) {
-        if (e.target.nodeName === "BUTTON") {
-          let playerSelection = e.target.id;
-          let roundWinner = playRound(playerSelection);
-          keepScore(roundWinner);
-        }
-      });
-
-      const keepScore = outer();
-      function outer() {
-        let playerScore = 0;
-        let computerScore = 0;
-        // This inner function has private access to the player and computer scores
-        const inner = (roundWinner) => {
-          switch (roundWinner) {
-            case "Player":
-              playerScore++;
-              break;
-            case "Computer":
-              computerScore++;
-              break;
-          }
-          if (playerScore === 5 || computerScore === 5) {
-            if (playerScore === computerScore) {
-              results.textContent = `Time game! Play again?`;
-            } else if (playerScore > computerScore) {
-              results.textContent = `You win the game!`;
-            } else results.textContent = `You lose the game!`;
-          }
-        };
-        // By returning the function we can have access to the parent scope even after the parent function has returned and closed
-        return inner;
-      }
-      // Helper functions
-      function random(number) {
-        return Math.floor(Math.random() * number + 1);
-      }
-      function capitalize(string) {
-        return string[0].toUpperCase() + string.slice(1).toLowerCase();
-      }
-      function display(string) {
-        results.textContent = string;
-      }
-    </script>
+        <img
+          id="lose-gif"
+          class="hidden"
+          src="https://media.giphy.com/media/gHhz5ZqkY8rzyWUiKw/giphy.gif"
+          alt="Computer thrown out a window gif"
+        />
+        <button id="play-again">Play Again?</button>
+      </section>
+    </main>
+    <footer>
+      <p>
+        An
+        <a href="https://twitter.com/alithetechie" target="_blank"
+          >alithetechie</a
+        >
+        experience.
+      </p>
+    </footer>
   </body>
 </html>
