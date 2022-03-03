@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f2e9e4;
+  font-family: monospace, "Roboto", sans-serif;
+  font-size: 1.6rem;
+  text-align: center;
+}
+header {
+  padding-top: 5rem;
+}
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  min-width: 400px;
+  height: 600px;
+}
+.game h2 {
+  margin-bottom: 2rem;
+}
+#scoreboard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border: 3px solid black;
+  border-radius: 25px;
+  padding: 3rem 4rem;
+}
+.scores-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 40px;
+}
+.scores-container .container {
+  width: 100px;
+}
+.player-title,
+.scores,
+.choices {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+#gameboard {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.container.player {
+  width: 100px;
+}
+#results {
+  width: 200px;
+  font-size: 1.4rem;
+  margin-top: 5px;
+}
+
+.reset-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  position: relative;
+  bottom: 7rem;
+}
+
+.hidden {
+  display: none;
+}
+#win-gif,
+#lose-gif {
+  width: 400px;
+}
+#play-again {
+  width: 13rem;
+}
+
+button {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  background-color: #002f49;
+  color: #f2e9e4;
+  font-size: 2rem;
+  width: 12rem;
+  height: 5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 1rem;
+  margin: 1rem;
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+footer {
+  padding-bottom: 5rem;
+}
+a {
+  text-decoration: none;
+  animation: flicker 3s infinite;
+}
+@keyframes flicker {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    text-shadow: 0 0 5px #b026ff, 0 0 15px #b026ff, 0 0 25px #b026ff,
+      0 0 42px #d1d1d1, 0 0 82px #d1d1d1, 0 0 92px #d1d1d1, 0 0 102px #d1d1d1;
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
+}
