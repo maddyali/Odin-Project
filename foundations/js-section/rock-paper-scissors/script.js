@@ -96,7 +96,7 @@ function outer() {
 }
 // Helper functions
 function random(number) {
-  return Math.floor(Math.random() * number + 1);
+  return Math.floor(Math.random() * (number + 1));
 }
 function capitalize(string) {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
